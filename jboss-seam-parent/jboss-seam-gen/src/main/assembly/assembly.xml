@@ -5,7 +5,7 @@
 
    <id>distribution</id>
    <formats>
-      <format>dir</format>
+      <format>zip</format>
    </formats>
    <includeBaseDirectory>false</includeBaseDirectory>
   
@@ -13,11 +13,19 @@
    <!-- Add distribution files -->
    <fileSets>
       <fileSet>
-         <directory>dist</directory>
-         <outputDirectory>.</outputDirectory>
+         <directory>seam-gen</directory>
+         <outputDirectory>./seam-gen</outputDirectory>
          <excludes>
             <exclude>pom.xml</exclude>
+            <exclude>seam</exclude>
          </excludes>
+      </fileSet>
+      <fileSet>
+      	<directory>seam-gen</directory>
+        <outputDirectory>.</outputDirectory>
+        <includes>
+        	<include>seam</include>
+        </includes>
       </fileSet>
    </fileSets>
    

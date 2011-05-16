@@ -5,7 +5,8 @@
 
    <id>distribution</id>
    <formats>
-      <format>dir</format>
+      <format>zip</format>
+      <format>tar.gz</format>
    </formats>
    <includeBaseDirectory>false</includeBaseDirectory>
   
@@ -17,90 +18,81 @@
          <outputDirectory>.</outputDirectory>
          <includes>
             <include>*.txt</include>
-            <!-- <include>lgpl.txt</include>
-            <include>copyright.txt</include>
-            <include>changelog.txt</include> -->            
+			<include>build.properties</include>
+			<include>eclipse-code-formatter-profile.xml</include>          
          </includes>
       </fileSet>
    </fileSets>
-   
-<!--   <moduleSets> -->
-<!--     <moduleSet> -->
-    
-<!--       Enable access to all projects in the current multimodule build! -->
-<!--       <useAllReactorProjects>true</useAllReactorProjects> -->
-      
-<!--       Now, select which projects to include in this module-set. -->
-<!--       <includes> -->
-<!--         <include>org.jboss.seam:*:*</include> -->
-<!--       </includes> -->
-<!--       <binaries> -->
-<!--         <outputDirectory>lib</outputDirectory> -->
-<!--         <unpack>false</unpack> -->
-<!--       </binaries> -->
-<!--       <sources> -->
-<!--         <outputDirectory>lib/sources</outputDirectory> -->
-<!--       </sources>       -->
-<!--     </moduleSet> -->
-<!--   </moduleSets>   -->
-   
-
-   <dependencySets>
-      <!-- Add necessary javadoc jars -->
-<!--       <dependencySet> -->
-<!--          <outputDirectory>doc/javadoc</outputDirectory> -->
-<!--          <useProjectArtifact>false</useProjectArtifact> -->
-<!--          <includes> -->
-<!--             <include>org.jboss.seam:jboss-seam:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-debug:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-excel:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-flex:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-ioc:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-jul:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-mail:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-pdf:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-remoting:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-resteasy:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-rss:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-ui:*:javadoc</include> -->
-<!--             <include>org.jboss.seam:jboss-seam-wicket:*:javadoc</include> -->
-<!--          </includes> -->
-<!--          <excludes> -->
-<!--             <exclude>org.jboss.seam:jboss-seam-gen:*</exclude> -->
-<!--             <exclude>org.jboss.seam:seam-reference-guide</exclude> -->
-<!--          </excludes> -->
-<!--          <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>          -->
-<!--       </dependencySet> -->
-      <!-- Add necessary sources jars -->
+ 
+   <dependencySets>           
+      <!-- Add necessary sources jars -->      
       <dependencySet>
          <outputDirectory>lib/sources</outputDirectory>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
-            <include>org.jboss.seam:jboss-seam*:*:sources</include>
+            <include>*:sources</include>
          </includes>
+         <excludes>
+            <exclude>org.jboss.seam:jboss-seam-gen:*:sources</exclude>
+         </excludes>
          <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
+      
       <!-- Add necessary dependencies -->
       <dependencySet>
          <outputDirectory>lib</outputDirectory>
          <useProjectArtifact>false</useProjectArtifact>
-         <useTransitiveDependencies>true</useTransitiveDependencies>
+         <useTransitiveDependencies>true</useTransitiveDependencies>         
          <excludes>
-            <exclude>org.jboss.seam:jboss-seam-gen:*</exclude>
-            <exclude>org.jboss.seam:seam-reference-guide</exclude>
-<!--             <exclude>org.jboss.seam:*</exclude> -->
+            <exclude>org.jboss.seam:jboss-seam-gen:*:*</exclude>
+            <exclude>org.jboss.seam:seam-reference-guide:*:*</exclude>
+             <exclude>*:sources</exclude>
+             <exclude>*:javadoc</exclude>
          </excludes>
          <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
+      
       <!-- Seam gen -->
       <dependencySet>
          <outputDirectory>lib/gen</outputDirectory>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
-            <include>org.jboss.seam:jboss-seam-gen:*</include>
+            <include>org.jboss.seam:jboss-seam-gen:jar</include>
+         </includes>
+         <excludes>
+            <exclude>org.jboss.seam:jboss-seam-gen:*:sources</exclude>
+         </excludes>
+         <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      </dependencySet>
+      
+      <dependencySet>
+         <outputDirectory>lib/gen/src</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam:jboss-seam-gen:*:sources</include>
          </includes>
          <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
+      
+      <dependencySet>
+         <outputDirectory>.</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <unpack>true</unpack>
+         <includes>
+            <include>org.jboss.seam:jboss-seam-gen:zip:distribution</include>
+         </includes>
+      </dependencySet>
+      
+      <dependencySet>
+         <outputDirectory>lib/test</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.embedded:hibernate-all:*</include>
+            <include>org.jboss.seam.embedded:jboss-embedded-all:*</include>
+            <include>org.jboss.seam.embedded:thirdparty-all:*</include>
+         </includes>
+      </dependencySet>
+      
       <!-- Pull in the example projects -->
 <!--       <dependencySet> -->
 <!--          <outputDirectory>examples</outputDirectory> -->
@@ -110,6 +102,7 @@
 <!--             <include>org.jboss.seam.examples:*:*</include>             -->
 <!--          </includes> -->
 <!--       </dependencySet> -->
+
       <!-- Pull in docbook artifacts -->
       <dependencySet>
          <outputDirectory>doc/reference/</outputDirectory>
@@ -124,6 +117,27 @@
             </excludes>
          </unpackOptions>
          <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      </dependencySet>
+      
+      <!-- Add necessary javadoc jars -->
+      <dependencySet>
+         <outputDirectory>doc/api</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <unpack>true</unpack>
+         <includes>
+            <include>org.jboss.seam:jboss-seam:*:javadoc</include>
+         </includes>
+         <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>         
+      </dependencySet>
+
+      <dependencySet>
+         <outputDirectory>doc/ui/api</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <unpack>true</unpack>
+         <includes>
+            <include>org.jboss.seam:jboss-seam-ui:*:javadoc</include>
+         </includes>
+         <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>         
       </dependencySet>
    </dependencySets>
 
