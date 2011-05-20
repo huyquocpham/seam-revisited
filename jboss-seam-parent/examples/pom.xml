@@ -24,12 +24,12 @@
         <module>excel</module>
         <module>guice</module>
         <module>groovybooking</module>
-        <!-- <module>hibernate</module> -->
+        <module>hibernate</module>
         <module>icefaces</module>
         <module>itext</module>
-        <!-- <module>jee5/remoting</module> -->
-        <!-- <module>jee5/booking</module> -->
-        <!-- <module>jpa</module> -->
+        <module>jee5/booking</module>
+        <module>jee5/remoting</module>
+        <module>jpa</module>
         <!-- <module>mail</module> -->
         <module>messages</module>
         <module>metawidget/dvdstore</module>
@@ -131,7 +131,7 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>commons-logging</groupId>
+                <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2</version>
                 <scope>provided</scope>
@@ -300,6 +300,11 @@
                 <groupId>org.apache.solr</groupId>
                 <artifactId>solr-lucene-snowball</artifactId>
                 <version>1.3.0</version>
+             </dependency>
+             <dependency>
+                <groupId>com.sun.el</groupId>
+                <artifactId>el-ri</artifactId>
+                <version>1.0</version>
              </dependency>
         </dependencies>
              
