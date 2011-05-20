@@ -172,7 +172,7 @@ public class Booking implements Serializable
       this.beds = beds;
    }
    @NotNull(message="Credit card name is required")
-   @Length(min=3, max=70)
+   @Length(min=3, max=70, message="Credit card name is required")
    @UiComesAfter( "creditCard" )
    public String getCreditCardName()
    {
