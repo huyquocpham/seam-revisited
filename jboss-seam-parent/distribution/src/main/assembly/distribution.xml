@@ -5,8 +5,9 @@
 
    <id>distribution</id>
    <formats>
-      <format>zip</format>
-      <format>tar.gz</format>
+   		<format>dir</format>
+<!--       <format>zip</format> -->
+<!--       <format>tar.gz</format> -->
    </formats>
    <includeBaseDirectory>false</includeBaseDirectory>
   
@@ -46,8 +47,17 @@
          <excludes>
             <exclude>org.jboss.seam:jboss-seam-gen:*:*</exclude>
             <exclude>org.jboss.seam:seam-reference-guide:*:*</exclude>
-             <exclude>*:sources</exclude>
-             <exclude>*:javadoc</exclude>
+            <exclude>*:sources</exclude>
+            <exclude>*:javadoc</exclude>
+            <exclude>org.hibernate:hibernate-tools:jar</exclude>
+            <exclude>freemarker:freemarker:jar</exclude>
+            <exclude>org.eclipse.core:runtime:jar</exclude>
+            <exclude>org.eclipse.equinox:common:jar</exclude>
+            <exclude>org.eclipse:text:jar</exclude>
+            <exclude>org.richfaces.samples:darkX:jar</exclude>
+            <exclude>org.richfaces.samples:laguna:jar</exclude>
+            <exclude>org.richfaces.samples:glassX:jar</exclude>
+            <exclude>org.apache.ant:ant:jar</exclude>
          </excludes>
          <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
@@ -58,6 +68,15 @@
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
             <include>org.jboss.seam:jboss-seam-gen:jar</include>
+            <include>org.hibernate:hibernate-tools:jar</include>
+            <include>freemarker:freemarker:jar</include>
+            <include>org.eclipse.core:runtime:jar</include>
+            <include>org.eclipse.equinox:common:jar</include>
+            <include>org.eclipse:text:jar</include>
+            <include>org.richfaces.samples:darkX:jar</include>
+            <include>org.richfaces.samples:laguna:jar</include>
+            <include>org.richfaces.samples:glassX:jar</include>
+            <include>org.apache.ant:ant:jar</include>
          </includes>
          <excludes>
             <exclude>org.jboss.seam:jboss-seam-gen:*:sources</exclude>

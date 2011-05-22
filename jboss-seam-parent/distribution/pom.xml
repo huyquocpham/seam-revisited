@@ -28,6 +28,7 @@
 						<descriptors>							
 							<descriptor>src/main/assembly/distribution.xml</descriptor>
 						</descriptors>
+						<finalName>jboss-seam-${project.version}</finalName>
 					</configuration>
 				</execution>
 			</executions>
