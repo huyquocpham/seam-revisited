@@ -56,7 +56,22 @@
             <groupId>org.jboss.seam</groupId>
             <artifactId>jboss-seam-mail</artifactId>
             <scope>test</scope>
-        </dependency>          
+        </dependency>    
+        <dependency>
+            <groupId>org.jboss.seam</groupId>
+            <artifactId>jboss-seam-pdf</artifactId>
+            <scope>test</scope>
+        </dependency>    
+        <dependency>
+            <groupId>org.jboss.seam</groupId>
+            <artifactId>jboss-seam-excel</artifactId>
+            <scope>test</scope>
+        </dependency>     
+        <dependency>
+            <groupId>org.jboss.seam</groupId>
+            <artifactId>jboss-seam-ui</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>jsf-api</artifactId>
