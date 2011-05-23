@@ -16,17 +16,6 @@
      <!--<mail:mail-session host="localhost" port="2525" /> -->
     
     <!-- uncomment this one and set the host attribute to the name or IP address of your SMTP gateway-->
-    <mail:mail-session host="localhost" tls="false" port="2525" ssl="false" />
-    
-    <!-- Configure meldware -->
-    <mail:meldware>
-    	<mail:users>
-    		<value>#{meldwareUser.test}</value>
-		</mail:users>
-    </mail:meldware>
-    
-    <!-- Meldware users -->
-    
-   	<mail:meldware-user name="meldwareUser.test" username="test" password="test" />
+    <mail:mail-session host="localhost" tls="false" port="3025" ssl="false" />    
 	
 </components>

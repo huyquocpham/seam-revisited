@@ -17,7 +17,7 @@
 	--> 
 <!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
 <suite name="Mail example" verbose="2" parallel="false">
-	<test name="mail_jboss4">
+	<test name="mail_jboss">
 		<parameter name="PROPERTY_FILE" value="" />
 		<classes>
 			<class name="org.jboss.seam.example.mail.test.selenium.SeleniumMailTest" />

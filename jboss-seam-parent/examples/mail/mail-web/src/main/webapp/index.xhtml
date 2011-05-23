@@ -74,13 +74,13 @@
     in <code>resources/WEB-INF/components.xml</code> a <code>&lt;mail:mailSession&gt;</code>,
     set a SMTP relay to relay via and then run the <code>ant deploy</code> again.</li>
     
-    <li><b>Servers other than JBoss AS</b> - This example deploys Meldware (from <a href="http://www.buni.org">buni.org</a>
-    - <code>meldware.ear</code>) to act as an SMTP server (it listens for authenticated
-    connections on <code>localhost:2525</code>).  This means the mail example will
-    work out of the box on JBoss AS 4.0.5.GA.  If you using another server you may need
+    <li><b>Servers other than JBoss AS</b> - This example deploys GreenMail JBoss Service (from <a href="http://www.icegreen.com/greenmail/">www.icegreen.com/greenmail/</a>
+    - <code>greenmail-jboss-service.sar</code>) to act as an SMTP server (it listens for authenticated
+    connections on <code>localhost:3025</code>).  This means the mail example will
+    work out of the box on JBoss AS.  If you using another server you may need
     to set an SMTP relay as described above.</li>
     
-    <li>Meldware will fail if you have another service using port 2525 (you'll get a errors
+    <li>GreenMail will fail if you have another service using port 3025 (you'll get a errors
     when the applicaiton is deployed).  To get around this you can set a SMTP gateway as
     described above.</li>
     </ul>

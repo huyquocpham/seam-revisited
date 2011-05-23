@@ -30,7 +30,7 @@
         <module>jee5/booking</module>
         <module>jee5/remoting</module>
         <module>jpa</module>
-        <!-- <module>mail</module> -->
+        <module>mail</module>
         <module>messages</module>
         <module>metawidget/dvdstore</module>
         <module>metawidget/booking</module>
