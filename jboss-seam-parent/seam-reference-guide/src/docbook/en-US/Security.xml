@@ -124,8 +124,8 @@
             xmlns:security="http://jboss.com/products/seam/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation=
-                "http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.2.xsd
-                 http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.2.xsd">
+                "http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.3.xsd
+                 http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.3.xsd">
 
     <security:identity authenticate-method="#{authenticator.authenticate}"/>
 
@@ -367,7 +367,7 @@ public class Authenticator {
         example:
       </para>
       
-      <programlisting role="XHTML"><![CDATA[<div>
+      <programlisting role="XHTML"><![CDATA[  <div>
     <h:outputLabel for="name" value="User name"/>
     <h:inputText id="name" value="#{credentials.username}"/>
   </div>
@@ -444,14 +444,18 @@ public class AuthenticationToken implements Serializable {
           attribute:
         </para>
         
-        <programlisting role="XML"><![CDATA[<security:jpa-token-store token-class="org.jboss.seam.example.seamspace.AuthenticationToken"/>]]></programlisting>
+        <programlisting role="XML"><![CDATA[
+<security:jpa-token-store token-class="org.jboss.seam.example.seamspace.AuthenticationToken" />]]>
+        </programlisting>
         
         <para>
           Once this is done, the last thing to do is to configure the <literal>RememberMe</literal> component in
           <literal>components.xml</literal> also.  Its <literal>mode</literal> should be set to <literal>autoLogin</literal>:
         </para>
         
-        <programlisting role="XML"><![CDATA[<security:remember-me mode="autoLogin"/>]]></programlisting>
+        <programlisting role="XML"><![CDATA[
+<security:remember-me mode="autoLogin"/>]]>
+        </programlisting>
         
         <para>
           That is all that is required - automatic authentication will now occur for users revisiting your site (as long as they
@@ -463,7 +467,8 @@ public class AuthenticationToken implements Serializable {
           should be placed in components.xml:
         </para>
 
-        <programlisting role="XML"><![CDATA[<event type="org.jboss.seam.security.notLoggedIn">
+        <programlisting role="XML">
+        <![CDATA[<event type="org.jboss.seam.security.notLoggedIn">
     <action execute="#{redirect.captureCurrentView}"/>
     <action execute="#{identity.tryLogin()}"/>
   </event>
@@ -508,7 +513,9 @@ public class AuthenticationToken implements Serializable {
       </para>
 
       <programlisting role="XML"><![CDATA[<pages>
+
     ...
+
     <exception class="org.jboss.seam.security.NotLoggedInException">
         <redirect view-id="/login.xhtml">
             <message>You must be logged in to perform this action</message>
@@ -540,8 +547,11 @@ public class AuthenticationToken implements Serializable {
       </para>
 
       <programlisting role="XML"><![CDATA[<pages login-view-id="/login.xhtml">
+
     <page view-id="/members/*" login-required="true"/>
+
     ...
+
 </pages>]]></programlisting>
 
       <tip>
@@ -584,7 +594,9 @@ public class AuthenticationToken implements Serializable {
         the <literal>authentication-filter</literal> component must be enabled in components.xml:
       </para>
 
-      <programlisting role="XML"><![CDATA[<web:authentication-filter url-pattern="*.seam" auth-type="basic"/>]]></programlisting>
+      <programlisting role="XML"><![CDATA[
+  <web:authentication-filter url-pattern="*.seam" auth-type="basic"/>
+      ]]></programlisting>
 
       <para>
         To enable the filter for basic authentication, set <literal>auth-type</literal> to <literal>basic</literal>,
@@ -592,7 +604,9 @@ public class AuthenticationToken implements Serializable {
         <literal>key</literal> and <literal>realm</literal> must also be set:
       </para>
 
-      <programlisting role="XML"><![CDATA[<web:authentication-filter url-pattern="*.seam" auth-type="digest" key="AA3JK34aSDlkj" realm="My App"/>]]></programlisting>
+      <programlisting role="XML"><![CDATA[
+  <web:authentication-filter url-pattern="*.seam" auth-type="digest" key="AA3JK34aSDlkj" realm="My App"/>
+      ]]></programlisting>
 
       <para>
         The <literal>key</literal> can be any String value.  The <literal>realm</literal> is the name of the
@@ -609,7 +623,8 @@ public class AuthenticationToken implements Serializable {
           against the digest request.  Here is an example:
         </para>
 
-        <programlisting role="JAVA"><![CDATA[public boolean authenticate()
+        <programlisting role="JAVA"><![CDATA[
+   public boolean authenticate()
    {
       try
       {
@@ -624,7 +639,8 @@ public class AuthenticationToken implements Serializable {
       {
          return false;
       }
-   }]]></programlisting>
+   }
+        ]]></programlisting>
       </sect3>
 
     </sect2>
@@ -715,14 +731,20 @@ public class AuthenticationToken implements Serializable {
         an <literal>LdapIdentityStore</literal> for both user-related and role-related operations:
       </para>
 
-      <programlisting role="XML"><![CDATA[<security:identity-manager identity-store="#{ldapIdentityStore}"/>]]></programlisting>
+      <programlisting role="XML"><![CDATA[      
+  <security:identity-manager identity-store="#{ldapIdentityStore}"/>
+      ]]></programlisting>
       
       <para>
         The following example configures <literal>identityManager</literal> to use an <literal>LdapIdentityStore</literal>
         for user-related operations, and <literal>JpaIdentityStore</literal> for role-related operations:
       </para>
       
-      <programlisting role="XML"><![CDATA[<security:identity-manager identity-store="#{ldapIdentityStore}" role-identity-store="#{jpaIdentityStore}"/>]]></programlisting>
+      <programlisting role="XML"><![CDATA[      
+  <security:identity-manager 
+    identity-store="#{ldapIdentityStore}" 
+    role-identity-store="#{jpaIdentityStore}"/>
+      ]]></programlisting>
       
       <para>
         The following sections explain both of these identity store implementations in greater detail.
@@ -750,7 +772,11 @@ public class AuthenticationToken implements Serializable {
           example shows the configuration from <literal>components.xml</literal> in the SeamSpace example:
         </para>
         
-        <programlisting role="XML"><![CDATA[<security:jpa-identity-store user-class="org.jboss.seam.example.seamspace.MemberAccount" role-class="org.jboss.seam.example.seamspace.MemberRole"/>]]></programlisting>
+        <programlisting role="XML"><![CDATA[
+  <security:jpa-identity-store 
+    user-class="org.jboss.seam.example.seamspace.MemberAccount"
+    role-class="org.jboss.seam.example.seamspace.MemberRole"/>
+        ]]></programlisting>
         
       </sect3>
       
@@ -766,9 +792,9 @@ public class AuthenticationToken implements Serializable {
           <title>User Entity Annotations</title>
     
           <tgroup cols="3">
-            <colspec colnum="1" colwidth="2*"/>
-            <colspec colnum="2" colwidth="1*"/>
-            <colspec colnum="3" colwidth="3*"/>
+            <colspec colnum="1" colwidth="1*" />
+            <colspec colnum="2" colwidth="1*" />
+            <colspec colnum="3" colwidth="3*" />
     
             <thead>
               <row>
@@ -817,7 +843,7 @@ public class AuthenticationToken implements Serializable {
                     <literal>md5</literal>, <literal>sha</literal> and <literal>none</literal>.  E.g:
                   </para>
 
-                  <programlisting role="JAVA"><![CDATA[@UserPassword(hash = "md5")
+                  <programlisting role="JAVA"><![CDATA[@UserPassword (hash="md5")
 public String getPasswordHash() { 
   return passwordHash; 
 }]]></programlisting>
@@ -903,7 +929,7 @@ public String getPasswordHash() {
           <title>Role Entity Annotations</title>
     
           <tgroup cols="3">
-            <colspec colnum="1" colwidth="2*"/>
+            <colspec colnum="1" colwidth="2*" />
             <colspec colnum="2" colwidth="1*" />
             <colspec colnum="3" colwidth="3*" />
     
@@ -996,7 +1022,7 @@ public String getPasswordHash() {
           
           <mediaobject>
             <imageobject role="fo">
-              <imagedata fileref="images/security-entities-1.png" align="center" scalefit="1"/>
+              <imagedata fileref="images/security-entities-1.png" align="center"/>
             </imageobject>
             <imageobject role="html">
               <imagedata fileref="images/security-entities-1.png" align="center"/>
@@ -1203,10 +1229,10 @@ public class Role {
         <table>
           <title>LdapIdentityStore Configuration Properties</title>
     
-          <tgroup cols="3">
-            <colspec colnum="1" colwidth="1*"/>
-            <colspec colnum="2" colwidth="2*"/>
-            <colspec colnum="3" colwidth="3*"/>
+          <tgroup cols="2">
+            <colspec colnum="1" colwidth="1*" />
+            <colspec colnum="2" colwidth="2*" />
+            <colspec colnum="3" colwidth="3*" />
     
             <thead>
               <row>
@@ -1577,6 +1603,22 @@ public class Role {
                   </para>
                 </entry>
               </row>
+	      
+              <row>
+                <entry>
+                  <para>
+                    <literal>security-authentication-type</literal>
+                  </para>
+                </entry>
+                <entry>
+                  <para><literal>simple</literal></para>
+                </entry>
+                <entry>
+                  <para>
+                    The security level to use.  Possible values are "none", "simple" and "strong".
+                  </para>
+                </entry>
+              </row>	      
                
             </tbody>
           </tgroup>
@@ -1656,13 +1698,13 @@ public class Role {
         component as follows:
       </para>
 
-      <programlisting role="JAVA"><![CDATA[@In IdentityManager identityManager;]]></programlisting>
+      <programlisting role="JAVA"><![CDATA[  @In IdentityManager identityManager;]]></programlisting>
 
       <para>
         or by accessing it through its static <literal>instance()</literal> method:
       </para>
 
-      <programlisting role="JAVA"><![CDATA[IdentityManager identityManager = IdentityManager.instance();]]></programlisting>
+      <programlisting role="JAVA"><![CDATA[  IdentityManager identityManager = IdentityManager.instance();]]></programlisting>
 
       <para>
         The following table describes <literal>IdentityManager</literal>'s API methods:
@@ -1672,9 +1714,9 @@ public class Role {
         <title>Identity Management API</title>
 
         <tgroup cols="3">
-          <colspec colnum="1" colwidth="3*"/>
-          <colspec colnum="2" colwidth="1*"/>
-          <colspec colnum="3" colwidth="5*"/>
+          <colspec colnum="1" colwidth="2*" />
+          <colspec colnum="2" colwidth="1*" />
+          <colspec colnum="2" colwidth="3*" />
 
           <thead>
             <row>
@@ -2090,9 +2132,9 @@ public class Role {
 
         <tgroup cols="3">
           <colspec colnum="1" colwidth="2*" />
-          <colspec colnum="2" colwidth="2*"/>
-          <colspec colnum="3" colwidth="2*" />
-          
+          <colspec colnum="1" colwidth="1*" />
+          <colspec colnum="2" colwidth="2*" />
+
           <thead>
             <row>
               <entry align="center">
@@ -2874,8 +2916,10 @@ public class Customer {
         security is how it is annotated:
       </para>
 
-      <programlisting role="JAVA"><![CDATA[@PrePersist @Restrict
- public void prePersist() {}]]></programlisting>
+      <programlisting role="JAVA"><![CDATA[
+  @PrePersist @Restrict
+  public void prePersist() {}
+   ]]></programlisting>
 
       <note>
          <title>Using <literal>/META-INF/orm.xml</literal></title>
@@ -3009,7 +3053,7 @@ end;]]></programlisting>
         following example:
       </para>
       
-      <programlisting><![CDATA[ @Insert(Customer.class)
+      <programlisting><![CDATA[  @Insert(Customer.class)
   public void createCustomer() {
     ...
   }]]></programlisting>
@@ -3026,9 +3070,9 @@ end;]]></programlisting>
         not required to specify a permission target (as the parameter value itself will be the target of the permission check):
       </para>
       
-      <programlisting><![CDATA[public void updateCustomer(@Update Customer customer) {
+      <programlisting><![CDATA[  public void updateCustomer(@Update Customer customer) {
     ...
-}]]></programlisting>
+  }]]></programlisting>
   
       <para>
         To create your own security annotation, you simply need to annotate it with <literal>@PermissionCheck</literal>, for example:
@@ -3135,10 +3179,10 @@ public @interface User {
             <title>PermissionResolver interface</title>
       
             <tgroup cols="3">
-              <colspec colnum="1" colwidth="2*"/>
+              <colspec colnum="1" colwidth="1*" />
               <colspec colnum="2" colwidth="3*" />
-              <colspec colnum="3" colwidth="3*" />
-                    
+              <colspec colnum="3" colwidth="3*" />              
+      
               <thead>
                 <row>
                   <entry align="center">
@@ -3241,7 +3285,7 @@ public @interface User {
         
         <mediaobject>
           <imageobject role="fo">
-            <imagedata fileref="images/security-permission-sequence.png" align="center"/>
+            <imagedata scalefit="1" fileref="images/security-permission-sequence.png" align="center"/>
           </imageobject>
           <imageobject role="html">
             <imagedata fileref="images/security-permission-sequence.png" align="center"/>
@@ -3351,10 +3395,10 @@ public @interface User {
               xmlns:drools="http://jboss.com/products/seam/drools"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation=
-                  "http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.2.xsd
-                   http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.2.xsd
-                   http://jboss.com/products/seam/drools http://jboss.com/products/seam/drools-2.2.xsd
-                   http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.2.xsd">
+                  "http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.3.xsd
+                   http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.3.xsd
+                   http://jboss.com/products/seam/drools http://jboss.com/products/seam/drools-2.3.xsd
+                   http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.3.xsd">
   
      <drools:rule-base name="securityRules">
          <drools:rule-files>
@@ -3551,7 +3595,8 @@ when
   Role(name == "admin")
 then
   c.grant();
-end;]]></programlisting>
+end;
+        ]]></programlisting>
 
         <para>
           This rule allows users with the <literal>admin</literal> role to perform <emphasis>any</emphasis> action for
@@ -3584,7 +3629,7 @@ end;]]></programlisting>
           <literal>permission-store</literal> property as follows:
         </para>        
         
-        <programlisting><![CDATA[<security:persistent-permission-resolver permission-store="#{myCustomPermissionStore}"/>]]></programlisting>
+        <programlisting><![CDATA[  <security:persistent-permission-resolver permission-store="#{myCustomPermissionStore}"/>]]></programlisting>
         
       </sect3>
       
@@ -3603,9 +3648,9 @@ end;]]></programlisting>
         <table>
           <title>PermissionStore interface</title>
     
-          <tgroup cols="3">
-            <colspec colnum="1" colwidth="2*" />
-            <colspec colnum="2" colwidth="4*" />
+          <tgroup cols="2">
+            <colspec colnum="1" colwidth="1*" />
+            <colspec colnum="2" colwidth="2*" />
             <colspec colnum="3" colwidth="3*" />
     
             <thead>
@@ -3802,12 +3847,12 @@ end;]]></programlisting>
         
         <para>For example, to configure a single entity class to store both user and role permissions:</para>
         
-        <programlisting role="XML"><![CDATA[<security:jpa-permission-store user-permission-class="com.acme.model.AccountPermission"/>]]></programlisting>
+        <programlisting role="XML"><![CDATA[<security:jpa-permission-store user-permission-class="com.acme.model.AccountPermission" />]]></programlisting>
         
         <para>To configure separate entity classes for storing user and role permissions:</para>
         
         <programlisting role="XML"><![CDATA[<security:jpa-permission-store user-permission-class="com.acme.model.UserPermission"
-    role-permission-class="com.acme.model.RolePermission"/>]]></programlisting>        
+    role-permission-class="com.acme.model.RolePermission" />]]></programlisting>        
         
         <sect4>
           <title>Permission annotations</title>
@@ -3821,9 +3866,9 @@ end;]]></programlisting>
           <table>
             <title>Entity Permission annotations</title>
       
-            <tgroup cols="3">
-              <colspec colnum="1" colwidth="3*" />
-              <colspec colnum="2" colwidth="2*"/>
+            <tgroup cols="2">
+              <colspec colnum="1" colwidth="1*" />
+              <colspec colnum="2" colwidth="1*" />
               <colspec colnum="3" colwidth="3*" />
       
               <thead>
@@ -3940,8 +3985,8 @@ end;]]></programlisting>
                       and <literal>role</literal>, the annotation would be written like this:
                     </para>
                     
-                    <programlisting role="JAVA"><![CDATA[@PermissionDiscriminator(userValue = "u",
- roleValue = "r")]]></programlisting>
+                    <programlisting role="JAVA"><![CDATA[@PermissionDiscriminator
+(userValue="u", roleValue="r")]]></programlisting>
                   </entry>
                 </row>                
                 
@@ -3959,7 +4004,8 @@ end;]]></programlisting>
             inside the SeamSpace example:
           </para>
           
-          <programlisting role="JAVA"><![CDATA[@Entity
+          <programlisting role="JAVA"><![CDATA[
+@Entity
 public class AccountPermission implements Serializable {  
    private Integer permissionId;
    private String recipient;
@@ -4011,7 +4057,8 @@ public class AccountPermission implements Serializable {
    public void setDiscriminator(String discriminator) {
       this.discriminator = discriminator;
    }
-}]]></programlisting>
+}          
+          ]]></programlisting>
           
           <para>
             As can be seen in the above example, the <literal>getDiscriminator()</literal> method has been annotated
@@ -4038,8 +4085,8 @@ public class AccountPermission implements Serializable {
             <title>Class Permission Annotations</title>
       
             <tgroup cols="3">
-              <colspec colnum="1" colwidth="2*" />
-              <colspec colnum="2" colwidth="2*"/>
+              <colspec colnum="1" colwidth="1*" />
+              <colspec colnum="2" colwidth="1*" />
               <colspec colnum="3" colwidth="3*" />
       
               <thead>
@@ -4302,7 +4349,9 @@ public class Customer { ]]></programlisting>
         custom permission store, specify the <literal>permission-store</literal> property in components.xml:
       </para>
       
-      <programlisting role="XML"><![CDATA[<security:permission-manager permission-store="#{ldapPermissionStore}"/>]]></programlisting>
+      <programlisting role="XML"><![CDATA[
+<security:permission-manager permission-store="#{ldapPermissionStore}"/>      
+      ]]></programlisting>
       
       <para>
         The following table describes each of the available methods provided by <literal>PermissionManager</literal>: 
@@ -4311,9 +4360,9 @@ public class Customer { ]]></programlisting>
       <table>
         <title>PermissionManager API methods</title>
   
-        <tgroup cols="3">
-          <colspec colnum="1" colwidth="2*"/>
-          <colspec colnum="2" colwidth="4*" />
+        <tgroup cols="2">
+          <colspec colnum="1" colwidth="2*" />
+          <colspec colnum="2" colwidth="3*" />
           <colspec colnum="3" colwidth="3*" />
   
           <thead>
@@ -4487,8 +4536,8 @@ public class Customer { ]]></programlisting>
         <tgroup cols="3">
           <colspec colnum="1" colwidth="2*" />
           <colspec colnum="2" colwidth="3*" />
-          <colspec colnum="3" colwidth="1*"/>
-          
+          <colspec colnum="2" colwidth="2*" />
+
           <thead>
             <row>
               <entry align="center">
@@ -4686,13 +4735,15 @@ public class Customer { ]]></programlisting>
         <literal>https-port</literal> attributes on the <literal>pages</literal> element:
       </para>
       
-      <programlisting role="XML"><![CDATA[<pages xmlns="http://jboss.com/products/seam/pages"
+      <programlisting role="XML"><![CDATA[
+<pages xmlns="http://jboss.com/products/seam/pages"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.3.xsd"
        no-conversation-view-id="/home.xhtml"
        login-view-id="/login.xhtml"
        http-port="8080"
-       https-port="8443">]]></programlisting>
+       https-port="8443">      
+      ]]></programlisting>
     </sect2>
 
   </sect1>
@@ -4790,8 +4841,8 @@ public class HitchhikersCaptcha extends Captcha
       <title>Security Events</title>
 
       <tgroup cols="2">
-        <colspec colnum="1" colwidth="4*"/>
-        <colspec colnum="2" colwidth="3*"/>
+        <colspec colnum="1" colwidth="3*" />
+        <colspec colnum="2" colwidth="2*" />
 
         <thead>
           <row>
@@ -4951,11 +5002,12 @@ public class HitchhikersCaptcha extends Captcha
       code that will be executed with the elevated privileges.
     </para>
     
-    <programlisting role="JAVA"><![CDATA[new RunAsOperation() {       
-   public void execute() {
-     executePrivilegedOperation();
-   }         
- }.addRole("admin").run();]]></programlisting>
+    <programlisting role="JAVA"><![CDATA[    new RunAsOperation() {       
+       public void execute() {
+          executePrivilegedOperation();
+       }         
+    }.addRole("admin")
+     .run();]]></programlisting>
     
     <para>
         In a similar way, the <literal>getPrincipal()</literal> or <literal>getSubject()</literal>
