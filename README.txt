@@ -1,3 +1,8 @@
+THIS IS NOW LEGACY PROTOTYPE OF SEAM 2.3 - CURRENT DEVELOPMENT IS IN OLD SVN JBOSS SEAM REPOSITORY
+http://anonsvn.jboss.org/repos/seam/branches/community/Seam_2_3
+
+****************************************************
+
 JBoss Seam Framework - 2.3.x
 
 This is a prototype of maven migration of http://anonsvn.jboss.org/repos/seam/branches/community/Seam_2_2
