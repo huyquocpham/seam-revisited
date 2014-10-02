@@ -1,7 +1,3 @@
-Huytesting
-========================
-Huy make some changes here
-
 Seam Example Applications
 =========================
 This directory contains the Seam example applications, which have all been
